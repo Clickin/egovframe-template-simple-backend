@@ -13,6 +13,7 @@ import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 /**
@@ -33,8 +34,11 @@ import org.springframework.stereotype.Service;
 @Service("EgovCmmUseService")
 public class EgovCmmUseServiceImpl extends EgovAbstractServiceImpl implements EgovCmmUseService {
 
-	@Resource(name = "cmmUseDAO")
-	private CmmUseDAO cmmUseDAO;
+	private final CmmUseDAO cmmUseDAO;
+
+	public EgovCmmUseServiceImpl(@Qualifier("cmmUseDAO") CmmUseDAO cmmUseDAO) {
+		this.cmmUseDAO = cmmUseDAO;
+	}
 
 	/**
 	 * 공통코드를 조회한다.
@@ -72,7 +76,7 @@ public class EgovCmmUseServiceImpl extends EgovAbstractServiceImpl implements Eg
 	/**
 	 * 조직정보를 코드형태로 리턴한다.
 	 *
-	 * @param 조회조건정보 vo
+	 * @param vo 조회조건정보
 	 * @return 조직정보 List
 	 * @throws Exception
 	 */
@@ -84,7 +88,7 @@ public class EgovCmmUseServiceImpl extends EgovAbstractServiceImpl implements Eg
 	/**
 	 * 그룹정보를 코드형태로 리턴한다.
 	 *
-	 * @param 조회조건정보 vo
+	 * @param vo 조회조건정보
 	 * @return 그룹정보 List
 	 * @throws Exception
 	 */

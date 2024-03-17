@@ -16,8 +16,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 import org.egovframe.rte.fdl.idgnr.EgovIdGnrService;
 import org.egovframe.rte.fdl.property.EgovPropertyService;
@@ -239,7 +239,7 @@ public class EgovFileMngUtil {
 	byte[] b = new byte[BUFF_SIZE]; //buffer size 2K.
     String fName = (new String(orgFileName.getBytes(), "UTF-8")).replaceAll("\r\n","");
 	response.setContentType("application/x-msdownload");
-	response.setHeader("Content-Disposition:", "attachment; filename=" + fName);
+	response.setHeader("Content-Disposition", "attachment; filename=" + fName);
 	response.setHeader("Content-Transfer-Encoding", "binary");
 	response.setHeader("Pragma", "no-cache");
 	response.setHeader("Expires", "0");
@@ -396,7 +396,7 @@ public class EgovFileMngUtil {
 
     	    	response.setBufferSize(fSize);
 		response.setContentType(mimetype);
-		response.setHeader("Content-Disposition:", "attachment; filename=" + orgFileName);
+		response.setHeader("Content-Disposition", "attachment; filename=" + orgFileName);
 		response.setContentLength(fSize);
 		//response.setHeader("Content-Transfer-Encoding","binary");
 		//response.setHeader("Pragma","no-cache");

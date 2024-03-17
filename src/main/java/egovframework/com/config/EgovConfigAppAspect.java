@@ -36,9 +36,11 @@ import org.egovframe.rte.fdl.cmmn.exception.manager.ExceptionHandlerService;
 @EnableAspectJAutoProxy
 public class EgovConfigAppAspect {
 
-	@Autowired
-	AntPathMatcher antPathMatcher;
+	private final AntPathMatcher antPathMatcher;
 
+	public EgovConfigAppAspect(AntPathMatcher antPathMatcher) {
+		this.antPathMatcher = antPathMatcher;
+	}
 	@Bean
 	public EgovComExcepHndlr egovHandler() {
 		EgovComExcepHndlr egovComExcepHndlr = new EgovComExcepHndlr();

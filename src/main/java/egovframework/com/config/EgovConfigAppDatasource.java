@@ -52,9 +52,11 @@ public class EgovConfigAppDatasource {
 	/**
 	 *  Environment 의존성 주입하여 사용하는 방법
 	 */
+	private final Environment env;
 
-	@Autowired
-	Environment env;
+	public EgovConfigAppDatasource(Environment env) {
+		this.env = env;
+	}
 
 	private String dbType;
 

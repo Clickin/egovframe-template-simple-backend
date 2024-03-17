@@ -1,8 +1,15 @@
 package egovframework.com.config;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import egovframework.com.cmm.EgovComTraceHandler;
+import egovframework.com.cmm.ImagePaginationRenderer;
+import org.egovframe.rte.fdl.cmmn.trace.LeaveaTrace;
+import org.egovframe.rte.fdl.cmmn.trace.handler.TraceHandler;
+import org.egovframe.rte.fdl.cmmn.trace.manager.DefaultTraceHandleManager;
+import org.egovframe.rte.fdl.cmmn.trace.manager.TraceHandlerService;
+import org.egovframe.rte.fdl.cryptography.EgovPasswordEncoder;
+import org.egovframe.rte.fdl.cryptography.impl.EgovARIACryptoServiceImpl;
+import org.egovframe.rte.ptl.mvc.tags.ui.pagination.DefaultPaginationManager;
+import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationRenderer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -12,19 +19,10 @@ import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 
-import egovframework.com.cmm.EgovComTraceHandler;
-import egovframework.com.cmm.ImagePaginationRenderer;
-import egovframework.com.cmm.web.EgovMultipartResolver;
-
-import org.egovframe.rte.fdl.cmmn.trace.LeaveaTrace;
-import org.egovframe.rte.fdl.cmmn.trace.handler.TraceHandler;
-import org.egovframe.rte.fdl.cmmn.trace.manager.DefaultTraceHandleManager;
-import org.egovframe.rte.fdl.cmmn.trace.manager.TraceHandlerService;
-import org.egovframe.rte.fdl.cryptography.EgovPasswordEncoder;
-import org.egovframe.rte.fdl.cryptography.impl.EgovARIACryptoServiceImpl;
-import org.egovframe.rte.ptl.mvc.tags.ui.pagination.DefaultPaginationManager;
-import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationRenderer;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @ClassName : EgovConfigAppCommon.java
@@ -115,34 +113,17 @@ public class EgovConfigAppCommon {
 		return defaultPaginationManager;
 	}
 
-	/**
-	 * @return [MultipartResolver 설정] CommonsMultipartResolver 등록
-	 */
-	@Bean
-	public CommonsMultipartResolver springRegularCommonsMultipartResolver() {
-		CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver();
-		commonsMultipartResolver.setMaxUploadSize(100000000);
-		commonsMultipartResolver.setMaxInMemorySize(100000000);
-		commonsMultipartResolver.setSupportedMethods("POST","PUT");
-		return commonsMultipartResolver;
-	}
 
-	/**
-	 * 확장자 제한 : globals.properties > Globals.fileUpload.Extensions로 설정
-	 * @return [MultipartResolver 설정] EgovMultipartResolver 등록
-	 */
 	@Bean
-	public EgovMultipartResolver localMultiCommonsMultipartResolver() {
-		EgovMultipartResolver egovMultipartResolver = new EgovMultipartResolver();
-		egovMultipartResolver.setMaxUploadSize(100000000);
-		egovMultipartResolver.setMaxInMemorySize(100000000);
-		egovMultipartResolver.setSupportedMethods("POST","PUT");
-		return egovMultipartResolver;
+	public StandardServletMultipartResolver standardServletMultipartResolver() {
+		// CommonsMultipartResolver는 deprecated 되었으므로 StandardServletMultipartResolver로 변경
+		StandardServletMultipartResolver standardServletMultipartResolver = new StandardServletMultipartResolver();
+		return new StandardServletMultipartResolver();
 	}
 	
 	@Bean
-	public CommonsMultipartResolver multipartResolver() {
-		return localMultiCommonsMultipartResolver();
+	public StandardServletMultipartResolver multipartResolver() {
+		return standardServletMultipartResolver();
 	}
 	
 	/**

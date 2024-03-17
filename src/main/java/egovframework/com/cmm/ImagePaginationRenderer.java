@@ -1,8 +1,8 @@
 package egovframework.com.cmm;
 
+import jakarta.servlet.ServletContext;
 import org.egovframe.rte.ptl.mvc.tags.ui.pagination.AbstractPaginationRenderer;
 
-import javax.servlet.ServletContext;
 
 import org.springframework.web.context.ServletContextAware;
 /**

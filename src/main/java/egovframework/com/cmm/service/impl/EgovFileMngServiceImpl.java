@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import egovframework.com.cmm.service.EgovFileMngService;
@@ -31,8 +32,11 @@ import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
 @Service("EgovFileMngService")
 public class EgovFileMngServiceImpl extends EgovAbstractServiceImpl implements EgovFileMngService {
 
-    @Resource(name = "FileManageDAO")
-    private FileManageDAO fileMngDAO;
+    private final FileManageDAO fileMngDAO;
+
+    public EgovFileMngServiceImpl(@Qualifier("FileManageDAO") FileManageDAO fileMngDAO) {
+    	this.fileMngDAO = fileMngDAO;
+    }
 
     /**
      * 여러 개의 파일을 삭제한다.
